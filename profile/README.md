@@ -1,10 +1,16 @@
 <div align="center">
 
-<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/coherence-energy-labs/.github/main/assets/banner-dark.svg">
+  <img alt="Coherence Energy Labs — how systems hold together. This banner is the solution of the field equation (D·L + κ²I)τ = s, computed in exact integer arithmetic." src="https://raw.githubusercontent.com/coherence-energy-labs/.github/main/assets/banner-light.svg" width="100%">
+</picture>
 
-# Coherence Energy Labs
+[![banner re-derives](https://github.com/coherence-energy-labs/.github/actions/workflows/verify-banner.yml/badge.svg)](https://github.com/coherence-energy-labs/.github/actions/workflows/verify-banner.yml)
 
-### How systems hold together.
+*The banner above is not a drawing. It is the solution of our field equation, computed in exact integer arithmetic
+by [a program in this repository](https://github.com/coherence-energy-labs/.github/blob/main/tools/render_banner.py) and
+re-derived by CI on every push — [if one byte drifts, the build goes red](https://github.com/coherence-energy-labs/.github/actions/workflows/verify-banner.yml).
+Its receipt is [committed beside it](https://github.com/coherence-energy-labs/.github/blob/main/assets/RECEIPT.json) and printed on the artifact itself.*
 
 <br>
 
@@ -15,8 +21,6 @@
 
 [**Website**](https://coherenceenergylabs.com) &nbsp;·&nbsp; [**Live demos**](https://demos.coherenceenergylabs.com) &nbsp;·&nbsp; [**LumOne**](https://lumone.ai) &nbsp;·&nbsp; [**Contact**](mailto:info@coherenceenergylabs.com)
 
-<br>
-
 </div>
 
 ---
@@ -25,15 +29,32 @@
 
 The things we study in separate rooms — physics, life, mind, and technology — are more deeply connected than our disciplines treat them. **Coherence is parts working together as one**, and our founding question is whether that connection can be made *measurable, testable, and engineerable*.
 
-At Coherence Energy Labs it is not a metaphor. Coherence energy is a quantity we compute: the cost of holding a system's order together against noise. The same field equation that schedules instructions inside our compiler forecasts natural hazards, routes spacecraft trajectories, and drives the attention of our AI systems. One discipline, from bare metal to cosmology.
+At Coherence Energy Labs it is not a metaphor. Coherence energy is a quantity — the cost of holding a system's order together against noise:
+
+$$E_{\mathrm{coh}} \;=\; k_B T \, \cdot \, D_{\mathrm{KL}}\!\left(\rho_{\mathrm{system}} \,\|\, \rho_{\mathrm{disorder}}\right)$$
+
+and coherence itself is a field we solve, with one governing equation reused across every domain we touch:
+
+$$\left(D\,L + \kappa^2 I\right)\tau \;=\; s$$
+
+The same screened field equation that schedules instructions inside our compiler forecasts natural hazards, plans spacecraft trajectories, drives the attention of our AI systems — and rendered the banner at the top of this page. **One discipline, from bare metal to cosmology.**
 
 ## The standard
 
 > **A claim is only as strong as the artifact behind it.**
 
-Modern software asks for trust. Ours is engineered so that trust is never required:
+Modern software asks for trust. Ours is engineered so that trust is never required. Every result travels a chain of custody in which each link is checkable by a stranger:
 
-- **Every result ships as program + input + receipt.** Anyone can re-execute it and get the same bytes. A stranger can verify our claims with a verifier that imports *zero* lines of our code.
+```mermaid
+graph LR
+    A["Source<br/><i>one program</i>"] --> B["Certified compile<br/><i>proven equivalent<br/>over ALL inputs</i>"]
+    B --> C["Deterministic execution<br/><i>0 ULP across<br/>CPU · GPU · WASM · browser</i>"]
+    C --> D["Receipt<br/><i>program + input +<br/>cryptographic hash</i>"]
+    D --> E["Stranger verification<br/><i>zero lines of<br/>our code required</i>"]
+    E --> F["A claim<br/>you can cite"]
+```
+
+- **Every result ships as program + input + receipt.** Anyone can re-execute it and get the same bytes.
 - **Every guarantee has a gate that can say no.** Our CI gates are mutation-tested — we deliberately inject the bugs they claim to catch and prove they go red. A gate that cannot fail is not a gate.
 - **Every failure is published, not buried.** We keep a falsification library of our own dead claims, dated and preserved. Negative results are load-bearing.
 - **Everything fails closed.** When evidence is missing, the answer is "no" — in our compilers, our proofs, and our AI.
@@ -50,7 +71,7 @@ Modern software asks for trust. Ours is engineered so that trust is never requir
 | **29** | cryptographic primitives — classical and post-quantum — each verified byte-exact against independent NIST/RFC test vectors, interoperable with reference implementations. |
 | **15** | communication-protocol specifications formally model-checked with an active attacker in the model. |
 | **~9 ms** | to generate a million-point proof round on GPU, bit-identical to the reference prover. Verification runs client-side, in a browser. |
-| **1** | field equation, solved everywhere: compiler scheduling, hazard forecasting, trajectory design, machine cognition. |
+| **1** | field equation, solved everywhere: compiler scheduling, hazard forecasting, trajectory design, machine cognition — and this page's own banner. |
 
 </div>
 
@@ -74,6 +95,8 @@ Our [live demos](https://demos.coherenceenergylabs.com) hand *you* the verifier:
 - **CPU == GPU, live** — the same computation on two different substrates, agreeing to the last bit, in front of you.
 
 No accounts. No telemetry. No network required. The proof either verifies on your machine or it doesn't.
+
+**This page practices what it preaches.** The banner is a re-executable figure with [its receipt committed](https://github.com/coherence-energy-labs/.github/blob/main/assets/RECEIPT.json), guarded by [a public gate](https://github.com/coherence-energy-labs/.github/actions/workflows/verify-banner.yml) that re-derives it from source on every push and on a weekly schedule. Clone this repo and run `python tools/render_banner.py --check` — you'll re-create the org's face, byte for byte, on your own machine.
 
 ## How we work
 
