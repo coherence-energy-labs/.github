@@ -19,7 +19,7 @@ Its [receipt](https://github.com/coherence-energy-labs/.github/blob/main/assets/
 
 <br>
 
-[**Website**](https://coherenceenergylabs.com) &nbsp;·&nbsp; [**Live demos**](https://demos.coherenceenergylabs.com) &nbsp;·&nbsp; [**LumOne**](https://lumone.ai) &nbsp;·&nbsp; [**Contact**](mailto:info@coherenceenergylabs.com)
+[**Website**](https://coherenceenergylabs.com) &nbsp;·&nbsp; [**Live demos**](https://demos.coherenceenergylabs.com) &nbsp;·&nbsp; [**Contact**](mailto:info@coherenceenergylabs.com)
 
 </div>
 
@@ -86,7 +86,7 @@ graph LR
 | | |
 |---|---|
 | **Coherence Language** | A first-principles programming language, compiler, and runtime. Certified compilation — the toolchain *cannot miscompile*, because optimized and original are proven equivalent over all inputs before anything ships. The same source runs bit-identically from bare metal to your browser tab. |
-| **LumOne** | A coherence-native AI whose every decision is re-runnable and receipted. Fifteen-plus sound solver lanes — exact arithmetic, theorem provers, computer algebra — answer *before* a model generates a single token. And when it cannot know, it does something no other AI does: it signs a **provable certificate of ignorance** instead of bluffing. **[Live now.](https://lumone.ai)** |
+| **LumOne** | A coherence-native AI whose every decision is re-runnable and receipted. Fifteen-plus sound solver lanes — exact arithmetic, theorem provers, computer algebra — answer *before* a model generates a single token. And when it cannot know, it signs a **provable certificate of ignorance** instead of bluffing. In active development. |
 | **A.C.E** | A cognitive architecture built entirely in Coherence Language — a mind whose reasoning is auditable end to end. Its memory is Merkle-sealed, its forecasts are registered *before* the evidence arrives, and its self-modification sits behind supervised gates with measured keep-or-rollback. In active development. |
 | **One Link** | Private communication with no servers. Post-quantum hybrid key exchange, forward-secret ratcheting, and a formally model-checked protocol core — privacy that holds against the next era of adversaries, not just this one. |
 | **Obsign** | AI you can prove. Accountable computation for media and models: deterministic, bit-exact, with re-executable provenance assertions that today's content-credential standards define but do not deliver. |
