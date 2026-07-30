@@ -49,13 +49,11 @@ The same equation schedules instructions in our compiler, forecasts natural haza
 
 Modern software asks for trust. Ours is engineered so that trust is never required. Every result travels a chain of custody in which each link is checkable by a stranger:
 
-```mermaid
-graph LR
-    A["Source<br/><i>one program</i>"] --> B["Certified compile<br/><i>proven equivalent<br/>over ALL inputs</i>"]
-    B --> C["Deterministic execution<br/><i>0 ULP across<br/>CPU · GPU · WASM · browser</i>"]
-    C --> D["Receipt<br/><i>program + input +<br/>cryptographic hash</i>"]
-    D --> E["Stranger verification<br/><i>zero lines of<br/>our code required</i>"]
-    E --> F["A claim<br/>you can cite"]
+```
+ source          certified          deterministic         receipt            stranger           a claim
+ one program ──► compile      ──►  execution       ──►  program + input ──► verification  ──►  you can
+                 proven equal      0 ULP across          + cryptographic    zero lines of       cite
+                 over ALL inputs   CPU·GPU·WASM·browser  hash               our code needed
 ```
 
 - **Every result ships as program + input + receipt.** Anyone can re-execute it and get the same bytes.
