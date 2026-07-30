@@ -7,10 +7,10 @@
 
 [![banner re-derives](https://github.com/coherence-energy-labs/.github/actions/workflows/verify-banner.yml/badge.svg)](https://github.com/coherence-energy-labs/.github/actions/workflows/verify-banner.yml)
 
-*The banner above is not a drawing. It is the solution of our field equation, computed in exact integer arithmetic
-by [a program in this repository](https://github.com/coherence-energy-labs/.github/blob/main/tools/render_banner.py) and
-re-derived by CI on every push — [if one byte drifts, the build goes red](https://github.com/coherence-energy-labs/.github/actions/workflows/verify-banner.yml).
-Its receipt is [committed beside it](https://github.com/coherence-energy-labs/.github/blob/main/assets/RECEIPT.json) and printed on the artifact itself.*
+*The banner is computed, not drawn — the solution of our field equation in exact integer arithmetic,
+rendered by [a program in this repository](https://github.com/coherence-energy-labs/.github/blob/main/tools/render_banner.py).
+CI [re-derives it on every push](https://github.com/coherence-energy-labs/.github/actions/workflows/verify-banner.yml); one byte of drift fails the build.
+Its [receipt](https://github.com/coherence-energy-labs/.github/blob/main/assets/RECEIPT.json) is committed beside it and printed on the artifact itself.*
 
 <br>
 
@@ -27,17 +27,21 @@ Its receipt is [committed beside it](https://github.com/coherence-energy-labs/.g
 
 ## The thesis
 
-The things we study in separate rooms — physics, life, mind, and technology — are more deeply connected than our disciplines treat them. **Coherence is parts working together as one**, and our founding question is whether that connection can be made *measurable, testable, and engineerable*.
+Physics, life, mind, and technology get studied in separate rooms. They share a load-bearing property: parts working together as one. We call that property **coherence**, and we treat it as an engineering quantity — something you can measure, compute, and build against.
 
-At Coherence Energy Labs it is not a metaphor. Coherence energy is a quantity — the cost of holding a system's order together against noise:
+Coherence energy is the cost of holding a system's order together against noise:
 
-$$E_{\mathrm{coh}} \;=\; k_B T \, \cdot \, D_{\mathrm{KL}}\!\left(\rho_{\mathrm{system}} \,\|\, \rho_{\mathrm{disorder}}\right)$$
+```
+E_coh = k_B·T · D_KL( ρ_system ‖ ρ_disorder )
+```
 
-and coherence itself is a field we solve, with one governing equation reused across every domain we touch:
+Coherence itself is a field, governed by one screened equation we solve everywhere:
 
-$$\left(D\,L + \kappa^2 I\right)\tau \;=\; s$$
+```
+(D·L + κ²I) τ = s
+```
 
-The same screened field equation that schedules instructions inside our compiler forecasts natural hazards, plans spacecraft trajectories, drives the attention of our AI systems — and rendered the banner at the top of this page. **One discipline, from bare metal to cosmology.**
+The same equation schedules instructions in our compiler, forecasts natural hazards, plans spacecraft trajectories, and drives attention in our AI systems. It also drew the banner at the top of this page. **One discipline, bare metal to cosmology.**
 
 ## The standard
 
