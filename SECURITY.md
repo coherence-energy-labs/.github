@@ -1,4 +1,4 @@
-# Security Policy — Coherence Energy Labs
+# Security Policy - Coherence Energy Labs
 
 This is the organization-wide default policy; it applies to every
 Coherence Energy Labs repository that does not carry its own SECURITY.md.
@@ -7,7 +7,7 @@ Coherence Energy Labs repository that does not carry its own SECURITY.md.
 
 Email **security@coherenceenergylabs.com**. We aim to acknowledge within
 72 hours. Please include a reproduction path. Do not open a public issue
-for a vulnerability before we have responded — coordinated disclosure
+for a vulnerability before we have responded - coordinated disclosure
 protects users of our live surfaces.
 
 Machine-readable policy: [security.txt](https://coherenceenergylabs.com/.well-known/security.txt) (RFC 9116).
