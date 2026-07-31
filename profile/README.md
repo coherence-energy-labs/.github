@@ -14,7 +14,7 @@ Its [receipt](https://github.com/coherence-energy-labs/.github/blob/main/assets/
 
 <br>
 
-**Provable software and applied systems, built on coherence energy - **
+**Provable software and applied systems, built on coherence energy:**
 **one measurable way to know how well any system holds together, and to make it hold together better.**
 
 <br>
