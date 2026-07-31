@@ -126,10 +126,10 @@ The forged ledger doesn't just fail — the audit names the exact accounts where
 
 <br>
 
-**Early, but not empty.**
+### One field. One framework.
 
-A working software stack. Applied systems in the field. An open technical foundation.
-And a standard of evidence we intend to make ordinary.
+The same equation runs everything here, from the compiler to the cosmos —
+and one standard of evidence judges it: **re-run it yourself, or read exactly why you can't yet.**
 
 <br>
 
