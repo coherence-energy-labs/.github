@@ -32,7 +32,7 @@
   "re_derive": "python tools/render_banner.py --check",
   "sha256_field": "6f6ebc73be62451d48bff72e3dda2d6e1af6eb744cf1de464fd4b21a8033eaa9",
   "sha256_svg": {
-    "dark": "8090b5cdc6da0d977186557b808d1573501b8a975f4bcdcd72c458bdf00711db",
-    "light": "0335d34355f94c10b7ce6ccdf88f3da1a340fbac527aa21f0a35d0e9e8b166ac"
+    "dark": "f2575a12bdce56ef4f0a3f841c7e036f08494734306672b2ae70acf083183620",
+    "light": "bd75dece95401434398b0d76e0a1c28f5475d4d0954973103d52415325f9664c"
   }
 }

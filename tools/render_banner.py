@@ -106,6 +106,12 @@ def render(variant, nodes, edges, bright, field_sha):
                f'integer arithmetic. params: D_milli={D_MILLI} k2_milli={K2_MILLI} '
                f'iters={ITERS} seed={SEED:#x} src={SRC:#x}. sha256(field)={field_sha}. '
                f'Re-derive: python tools/render_banner.py (repo coherence-energy-labs/.github) -->')
+    out.append(f'<defs><clipPath id="rc"><rect width="{W}" height="{H}" rx="30" ry="30"/></clipPath>'
+               f'<linearGradient id="sheen" x1="0" y1="0" x2="1" y2="0">'
+               f'<stop offset="0" stop-color="{p["node"]}" stop-opacity="0"/>'
+               f'<stop offset="0.5" stop-color="{p["node"]}" stop-opacity="0.055"/>'
+               f'<stop offset="1" stop-color="{p["node"]}" stop-opacity="0"/></linearGradient></defs>')
+    out.append('<g clip-path="url(#rc)">')
     out.append(f'<rect width="{W}" height="{H}" fill="{p["bg"]}"/>')
     # --- edges (the web that holds together)
     out.append(f'<g stroke="{p["edge"]}" stroke-width="1">')
@@ -130,6 +136,23 @@ def render(variant, nodes, edges, bright, field_sha):
             f'<animate attributeName="opacity" values="0.{lo:03d};0.{hi:03d};0.{lo:03d}" '
             f'dur="{PULSE_MS}ms" begin="-{begin}ms" repeatCount="indefinite"/></circle>')
     out.append('</g>')
+    # --- signal pulses traveling the lattice rows (speed follows the field)
+    pulses = []
+    for r in range(0, ROWS, 1):
+        row = nodes[r * COLS:(r + 1) * COLS]
+        mb = sum(bright[r * COLS:(r + 1) * COLS]) // COLS
+        if mb < 60:
+            continue
+        d = f"M{row[0][0]} {row[0][1]} " + " ".join(f"L{x} {y}" for x, y in row[1:])
+        dur = 30000 - mb * 20000 // 1000
+        begin = (r * 3137) % dur
+        op = 350 + mb * 550 // 1000
+        pulses.append(
+            f'<circle r="2.2" fill="{p["node"]}" fill-opacity="0.{op:03d}">'
+            f'<animateMotion path="{d}" dur="{dur}ms" begin="-{begin}ms" repeatCount="indefinite"/>'
+            f'<animate attributeName="fill-opacity" values="0;0.{op:03d};0.{op:03d};0" '
+            f'keyTimes="0;0.06;0.94;1" dur="{dur}ms" begin="-{begin}ms" repeatCount="indefinite"/></circle>')
+    out.append('<g>' + "".join(pulses) + '</g>')
     # --- wordmark
     cx = W // 2
     out.append(f'<text x="{cx}" y="176" text-anchor="middle" font-family={fonts!r} '
@@ -146,6 +169,10 @@ def render(variant, nodes, edges, bright, field_sha):
     out.append(f'<text x="{W - 24}" y="{H - 18}" text-anchor="end" font-family={mono!r} '
                f'font-size="13" fill="{p["meta"]}">sha256(field) = {field_sha[:16]}… · '
                f're-derive: tools/render_banner.py</text>')
+    out.append(f'<rect x="-460" y="-40" width="360" height="{H + 80}" fill="url(#sheen)" '
+               f'transform="skewX(-16)"><animateTransform attributeName="transform" type="translate" '
+               f'additive="sum" values="0 0; {W + 960} 0" dur="11000ms" repeatCount="indefinite"/></rect>')
+    out.append('</g>')
     out.append('</svg>')
     return "\n".join(out).encode("utf-8")
 
