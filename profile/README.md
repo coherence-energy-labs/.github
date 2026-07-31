@@ -68,14 +68,14 @@ Modern software asks for trust. Ours is engineered so that trust is never requir
 | | | |
 |---:|:---|:---:|
 | **0 ULP** | drift between CPU, GPU, WebAssembly, and browser execution of the same program — floating point included. Exactness is a contract, not an aspiration. | [`verified-public`](https://github.com/coherence-energy-labs/evidence/tree/main/claims/0-ulp-cross-substrate) |
-| **2⁶⁴ⁿ** | inputs covered by each compiler-optimization equivalence proof. Machine-checked over *every* possible input, not tested on a sample. | [`private-dev`](https://github.com/coherence-energy-labs/evidence/tree/main/claims/compiler-equivalence-proofs) |
-| **7** | compilation backends from one language — VM, C, native x86/ARM, LLVM, WebAssembly, GPU, and embedded scripting — proven to agree. | [`private-dev`](https://github.com/coherence-energy-labs/evidence/tree/main/claims/seven-backends) |
-| **29** | cryptographic primitives — classical and post-quantum — each verified byte-exact against independent NIST/RFC test vectors, interoperable with reference implementations. | [`private-dev`](https://github.com/coherence-energy-labs/evidence/tree/main/claims/crypto-29-primitives) |
-| **15** | communication-protocol specifications formally model-checked with an active attacker in the model. | [`private-dev`](https://github.com/coherence-energy-labs/evidence/tree/main/claims/protocol-model-checking) |
-| **~9 ms** | to generate a million-point proof round on GPU, bit-identical to the reference prover. Verification runs client-side, in a browser. | [`private-dev`](https://github.com/coherence-energy-labs/evidence/tree/main/claims/gpu-proof-9ms) |
+| **2⁶⁴ⁿ** | inputs covered by each compiler-optimization equivalence proof. Machine-checked over *every* possible input, not tested on a sample. | [`private-development`](https://github.com/coherence-energy-labs/evidence/tree/main/claims/compiler-equivalence-proofs) |
+| **7** | compilation backends from one language — VM, C, native x86/ARM, LLVM, WebAssembly, GPU, and embedded scripting — proven to agree. | [`private-development`](https://github.com/coherence-energy-labs/evidence/tree/main/claims/seven-backends) |
+| **29** | cryptographic primitives — classical and post-quantum — each verified byte-exact against independent NIST/RFC test vectors, interoperable with reference implementations. | [`private-development`](https://github.com/coherence-energy-labs/evidence/tree/main/claims/crypto-29-primitives) |
+| **15** | communication-protocol specifications formally model-checked with an active attacker in the model. | [`private-development`](https://github.com/coherence-energy-labs/evidence/tree/main/claims/protocol-model-checking) |
+| **~9 ms** | to generate a million-point proof round on GPU, bit-identical to the reference prover. Verification runs client-side, in a browser. | [`private-development`](https://github.com/coherence-energy-labs/evidence/tree/main/claims/gpu-proof-9ms) |
 | **1** | field equation, solved everywhere: compiler scheduling, hazard forecasting, trajectory design, machine cognition — and this page's own banner. | [`verified-public`](https://github.com/coherence-energy-labs/evidence/tree/main/claims/org-banner-re-executable) |
 
-*Every number above links to its entry in our public **[evidence registry](https://github.com/coherence-energy-labs/evidence)** — `verified-public` means you can check it yourself today; `private-dev` means we attest to it and say plainly that you currently cannot. We hold our marketing to the same standard as our software: no claim without a labeled artifact.*
+*Every number above links to its entry in our public **[evidence registry](https://github.com/coherence-energy-labs/evidence)** — `verified-public` means you can check it yourself today; `private-development` means we attest to it and say plainly that you currently cannot. We hold our marketing to the same standard as our software: no claim without a labeled artifact.*
 
 </div>
 
