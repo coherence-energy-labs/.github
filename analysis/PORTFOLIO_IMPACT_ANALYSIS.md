@@ -8,13 +8,17 @@
 
 ---
 
-## TL;DR — the answer
+## TL;DR — the converged ruling
 
-**Finish Obsign** — the `obsign` engine together with its public `obsign_verifier` — and re-aim it at **verifiable computation as public infrastructure**, with AI-media provenance as the second act rather than the headline.
+The original ask collapsed three questions; separating them ended the debate, and after three challenge rounds (§5b, §10) two independent analyses converged on the same structure:
 
-One sentence why: across 47 repositories the same invention keeps reappearing under thirteen different names — a **deterministic, signed, independently re-runnable receipt** — and Obsign is the only place that invention has been extracted into a standalone product, shipped to public registries, and had its central claim *re-derived from scratch by a hostile outsider and confirmed byte-for-byte*. It is the one thing here whose "if they knew" is not a marketing hope but a checkable fact, pointed at one of the defining problems of the late 2020s: how do you trust the output of a computation — especially an AI computation — that you did not run yourself?
+- **What to finish first: `Obsign` + `obsign_verifier`.** Across 47 repositories the same invention reappears under thirteen names — a **deterministic, signed, independently re-runnable receipt** — and Obsign is its most generalized, productized, deliberately outsider-facing expression: shipped to public registries, with a public stranger-verifier, its central claim re-derived from scratch during this audit and confirmed byte-for-byte. Finishing it creates the **credibility distribution layer for everything else the estate builds**: ONE-Q results, VMP computations, LumOne answers, Discovery Engine predictions — all become "Obsign it, then let disbelief become irrelevant."
+- **The deepest mechanism ceiling: VMP's minimum-sufficient verified computation** — *question → unresolved information → minimum sufficient work → proof*. Measured today (§5b), paradigm-scale if generalized.
+- **The largest single deployment of that mechanism: LumOne**, at the committing boundary of AI — every answer PROVED with a warrant, REFUTED with a witness, or UNKNOWN with a signed certificate of ignorance (§10).
 
-The strong runner-up is **LumOne** (higher ceiling, lower current credibility). The honest tension between them is the most important strategic decision in the portfolio, and it is discussed in full below.
+One architecture, three altitudes: **Obsign is the doorway, VMP is the engine, LumOne is the flagship deployment.** The unifying systems pattern: *large untrusted intelligence → small truth-bearing computation → minimum-sufficient execution → independent receipt.* The expensive, probabilistic thing stays probabilistic; the committing boundary becomes deterministic and verifiable.
+
+Sections 1–9 are the evidence base, preserved intact; §10 records the challenge rounds, the convergence, and three corrections adopted from the owner's review.
 
 ---
 
@@ -51,6 +55,8 @@ What is genuinely, repeatedly, and defensibly present instead is a **research-in
 
 omega_one states the lesson outright in its own self-teardown: **"Do not sell the theory; sell the receipt."** The estate has, unknowingly, already converged on its own answer. Obsign is that answer, extracted and made public.
 
+One refinement, adopted after review (§10): "not load-bearing" is a statement about *evidence*, not about *worth*. That the verified results survive with the physics deleted proves the verification architecture is independently valuable — it does not prove the physics is valueless. The physics is an open research program, and the correct path for it is the one the doctrine itself prescribes: don't ask anyone to believe the framework first; hand them something the framework produced that they can independently prove is real, and let them come asking what's underneath.
+
 ---
 
 ## 3. The decision: Obsign
@@ -59,7 +65,7 @@ omega_one states the lesson outright in its own self-teardown: **"Do not sell th
 
 **Why it wins on each term of the model:**
 
-- **Credibility — the highest in the estate, and the only one that clears the bar.** An independent analysis pass reimplemented Obsign's kernel from the spec, with no producer code, on a different OS / CPU / Python than the producer, and re-derived both a PDE receipt *and* a 27-instruction IFRS-9/CECL credit-loss receipt bit-for-bit. All sixteen forgery bundles were correctly refused. Critically, the `resealed_tampered_claim` case — signature-clean, internally consistent, but false — is caught by re-derivation and *only* by re-derivation. That single bundle is a complete, working demonstration of why attestation ≠ truth. **No other claim in the 47-repo estate can be checked by an outsider at all** — ACE, LumOne, idem, glasshouse all require the private, unshipped Coherence Language toolchain. Obsign is already on PyPI (`obsign-verify`) and npm, with the best cross-platform CI in the org (3 OS × 4 Python, including ARM64, printing output hashes per-runner so a divergence is visible).
+- **Credibility — the highest in the estate.** An independent analysis pass reimplemented Obsign's kernel from the spec, with no producer code, on a different OS / CPU / Python than the producer, and re-derived both a PDE receipt *and* a 27-instruction IFRS-9/CECL credit-loss receipt bit-for-bit. All sixteen forgery bundles were correctly refused. Critically, the `resealed_tampered_claim` case — signature-clean, internally consistent, but false — is caught by re-derivation and *only* by re-derivation. That single bundle is a complete, working demonstration of why attestation ≠ truth. **Precision matters here (corrected in §10): Obsign is not the *only* outsider-checkable claim — ONE-Q's distance closures were also independently re-verified during this audit, and several public repos carry stranger-verifiable artifacts. The defensible statement is stronger for being exact: Obsign is the most generalized, productized, deliberately outsider-facing expression of the re-derivation doctrine** — while the flagship AI and compiler claims (ACE, LumOne, idem, glasshouse) still require the private, unshipped Coherence Language toolchain. Obsign is already on PyPI (`obsign-verify`) and npm, with the best cross-platform CI in the org (3 OS × 4 Python, including ARM64, printing output hashes per-runner so a divergence is visible).
 
 - **Counterfactual-uniqueness — genuinely unoccupied ground.** The provenance landscape is entirely attestation-based (C2PA, in-toto, SLSA, SCITT) — all of them record *what was done* and sign it; none can re-execute the operation and confirm the result. The heavy alternative (ZK proofs) needs provers, trusted setups, and cryptographic novelty. Obsign occupies the empty middle: *re-derivation* — cheap, boring, no trusted hardware, no prover, auditable by hand. The decisive design insight is that **SLSA explicitly removed reproducible builds in v1.0 because reproducibility is intractable at build scale — and Obsign sidesteps that by narrowing to a single computed number.** That narrowing is what makes it work, and it is measured (27 instructions for a regulated credit-loss figure), not asserted. The replay-VM-carried-inside-a-signed-receipt is, as far as the analyses could find, not shipping anywhere.
 
@@ -187,7 +193,7 @@ The finish line is finite and does not touch the estate's bottleneck (`loo`). In
 3. **Get the external cryptographic audit** the project's own doctrine demands and has never had (`docs/SECURITY_AUDIT_SCOPE.md` is written and waiting).
 4. **Land one third-party attestation** — a single outside party who runs the verifier and publishes the log. The attestation format is specified and the template is empty (`challenge/ATTESTATION.md`). One real one converts "well-built" into "credible."
 5. **Submit `c2pa.reproducible.operation`** to the C2PA working group as the standards path — Obsign already contains the proposed vendor-neutral assertion and a real integration with Adobe's `c2pa-rs`.
-6. **Fix the trivial credibility leaks** that undercut a project whose entire brand is "no unbacked claims": the README says v1.0.0 while the package is v2.0.0; `challenge/README.md` lists an expected output that doesn't match the shipped bundles; and rotate the leaked credential so `obsign_verifier` can go public.
+6. **Fix the trivial credibility leaks** that undercut a project whose entire brand is "no unbacked claims": the README says v1.0.0 while the package is v2.0.0; `challenge/README.md` lists an expected output that doesn't match the shipped bundles; and rotate the leaked credential regardless (`obsign_verifier` is in fact already public — see §10 correction 3 — which makes the rotation more urgent, not less).
 
 Realistic horizon: a focused few months, most of it packaging, audit, and one compiler — not open research.
 
@@ -207,4 +213,23 @@ Realistic horizon: a focused few months, most of it packaging, audit, and one co
 
 The most striking fact about this portfolio is that it has, forty-seven times over, built the discipline for proving things are true — and then, in its public voice, made claims it cannot yet prove. The scarcest resource here is not rigor; there is more rigor per line in this org than in most funded labs. It is **convergence** — choosing one thing and carrying it through the last 30% into the world's hands.
 
-Obsign is that one thing. It is the estate's own best idea — the re-runnable receipt — already extracted, already shipped, already the only claim a stranger has verified. Finishing it doesn't just complete a product; it makes the whole portfolio's thesis checkable by people who have never met the author. That is what "impact if they knew" actually looks like: not a louder claim, but a claim anyone can re-run on their own machine and watch come out true.
+Obsign is that one thing. It is the estate's own best idea — the re-runnable receipt — already extracted, already shipped, already the claim most deliberately handed to strangers to verify, and it held. Finishing it doesn't just complete a product; it makes the whole portfolio's thesis checkable by people who have never met the author. That is what "impact if they knew" actually looks like: not a louder claim, but a claim anyone can re-run on their own machine and watch come out true.
+
+---
+
+## 10. Challenge rounds and convergence (amended 2026-08-19)
+
+This report was stress-tested in three rounds after its first version; the record is kept, per the estate's own erratum discipline.
+
+**Round 1 — the VMP counter-case.** "Finish VMP first, as proof-directed computing." Verified against VMP's artifacts and answered in §5b: VMP's ceiling raised to H; the pick held because Obsign is VMP's own stranger-verification gate, and "finish VMP" is a research bet whose flagship experiment is unrun.
+
+**Round 2 — the owner's rule: "largest impact, period; proximity excluded."** Under that objective the analysis named **LumOne**: the mechanism is evidenced (the 87%→3.7% selective-prediction result; real solver lanes; the Provable Ignorance Certificate implemented), and the ceiling operates at the layer civilization is delegating cognition to. Four tiebreakers vs VMP-as-paradigm: it attacks the binding constraint of the era (trust in machine cognition, not compute cost); the counterfactual is stark (nobody ships certified ignorance; everybody attacks compute efficiency); VMP's termination law reaches maximum expression at the semantic layer, which *is* LumOne; and its prevented failures are catastrophic-tail-shaped. The honest conditional: LumOne's ceiling equals the growth curve of its verification frontier (42.6% today), with autoformalization and the solver ecosystem as compounding tailwinds.
+
+**Round 3 — the owner's synthesis, and convergence.** The owner's independent review reached the same finish-first conclusion from a different route: *Obsign is the public abstraction for the entire stack* — the doorway through which every other project's results become externally checkable ("ONE-Q result? Obsign it. VMP computation? Obsign it. LumOne answer? Obsign it."). It also supplied the sharpest formulation of the target: not an image-forensics product and not merely "re-executable receipts," but **the universal verification layer for computed claims**, built on the operation of **extracting the truth-bearing kernel** — most committing claims depend on a small deterministic slice of an enormous system; find that slice, freeze it as a replay program, pin its hash, receipt it. The resulting systems pattern unifies the portfolio: *large untrusted intelligence → small truth-bearing computation → minimum-sufficient execution → independent receipt.*
+
+**Resolution of the remaining ceiling dispute (VMP #1 vs LumOne #1):** both statements are true at different altitudes. A pattern's ceiling is the sum over all its deployments — so VMP-as-pattern (minimum-sufficient verified computation) bounds any single consumer from above. The largest *single term* in that sum is the committing boundary of AI, which is LumOne's seat — and LumOne is itself the pattern's reference deployment (untrusted model proposes; deterministic lanes settle; receipt signs). No rival projects; one architecture: **Obsign the doorway, VMP the engine, LumOne the flagship deployment.**
+
+**Three corrections adopted from the owner's review:**
+1. **"Only externally-verified claim" was overstated.** ONE-Q's distance closures were also independently re-verified during this audit, and several public repos (oneq-distance-closures, hazardpulse ledgers, the org profile's own challenges) carry stranger-verifiable artifacts. Corrected in §3 to the exact and stronger statement: Obsign is the most generalized, productized, deliberately outsider-facing expression of the re-derivation doctrine.
+2. **"The real asset was never the physics" refined** (§2): the audit shows the physics is not load-bearing in any verified result today — which proves the verification architecture is independently valuable, not that the physics is worthless. The physics is an open research program whose credibility should arrive through the receipt layer.
+3. **`obsign_verifier` is public**, not private: the session-start repository inventory lists it `visibility: public`. The "private pending key rotation" note in §3/§7 was stale (drawn from an in-repo doc). The credential rotation remains worth doing — more so, now that the repo is exposed.
