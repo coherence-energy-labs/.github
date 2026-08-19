@@ -82,7 +82,7 @@ Every serious candidate, scored on the model (H/M/L). "Ceiling" is problem size;
 | **Obsign** (+verifier) | **H** | **H** | **H** | **M-H** | **H** | **The pick.** Only externally-verified claim; novel primitive; shipped; no blocking dependency. |
 | **LumOne** (+platform) | **H+** | M | M-H | M | M | Runner-up. Highest ceiling; publishable result; but unreproducible by outsiders and the novel part (PIC) isn't wired in. |
 | ONE-Q | M (deep) | **H** | H | M | **H** | Most shovel-ready. Independently re-verified. Tiny audience (QEC). Two papers written, unsubmitted. |
-| VMP | M-H | **H** | M | L-M | M | Best-engineered repo in the estate. Exact reproducible linear algebra + a portable measurement discipline. CUDA/Windows-locked. |
+| VMP | **H** | **H*** | M-H | L-M | M | Best-engineered repo; question-native computation is measured (see §5b) but on constructed programs, not yet in its own CLAIM.md, and stranger-unverifiable today. CUDA/Windows-locked. |
 | HazardPulse | **H+** | **Negative today** | M | M | L-M | Highest raw ceiling (lives) but currently loses to a trivial baseline in 432/432 forecasts. Fixable, but a science bet. |
 | Coherence Covenant | M | H | M-H | L | **H** | ~500 LOC standards-track receipt lattice. Highest impact-per-line, but infrastructure — value ∝ adoption of the whole thesis. |
 | Ariadne | M | H | M | **H** | **H** | Public, packaged, 1050 tests. Highest odds of a *real external user*. One honest baseline from a solid paper. Modest ceiling. |
@@ -104,6 +104,28 @@ So why does Obsign rank above it for *this* question?
 4. **Obsign is the substrate LumOne needs anyway.** LumOne's whole value proposition is the re-runnable receipt attached to each answer. Finishing Obsign first makes LumOne's receipts credible — the two share a spine.
 
 **The synthesis:** these are not really competitors. Obsign is the *provable-computation receipt*; LumOne is *that receipt applied to LLM answers*. The correct sequencing is Obsign → LumOne, and the correct near-term move on LumOne specifically is small and high-leverage: **wire `pic.py` into `turn.py` and the platform's chat envelope so "I don't know" becomes a downloadable, verifiable artifact** (days of work), and **publish a Linux/CPU path so a stranger can reproduce the 87%→3.7% number** (the single highest-value credibility action available to that project). Do those two things and LumOne graduates from "highest ceiling, can't check it" to a genuine co-headline.
+
+---
+
+## 5b. Challenge round — the case for VMP first, and why the pick survives it
+
+A serious counter-analysis was raised after the first version of this report: finish **VMP** first, not as a fast-math library but as the first public expression of *proof-directed, minimum-sufficient computation* — "a computer should compute only the information still necessary to prove the answer to the question being asked." That framing deserved verification against the repo rather than argument, so its load-bearing claims were checked directly.
+
+**What the counter-case gets right (and this report now adopts):**
+
+- Question-native computation in VMP is **measured, not merely envisioned**. `artifacts/observable_pullback__20260814T220445Z.json` records answering a query about a matrix product instead of materializing it — 11.45 ms vs 1210.36 ms (**105.7×**) with 1000/1000 exact identity trials, capacity certification (K18 covers; K16 correctly REFUSED), both arms agreeing exactly before any clock, and an honest information-floor note. BOARD row C2 records a proof planner that allocates channels per region — a settled region gets **zero** — 6.866 ms vs 9.3 ms uniform with every observable proven and a negative control. VISION §3.2 (marked BUILT): for a sign observable, 99.95% of the matrix settles at zero channels; every argmax/top-3 row settles at the cheapest rung.
+- The "five questions" benchmark it proposes — exact value → interval → sign → threshold → argmax, with work collapsing as the question weakens — is the single best experiment design available to the estate, and this report adopts it as the flagship research act.
+- Its "one escalating argument" portfolio framing (deterministic compute → proof/trust → verified decisions → discovery → matter) is crisper than this report's original portfolio-leverage section, and is adopted.
+
+**Accordingly, VMP's ceiling in the scoreboard is raised from M-H to H.**
+
+**Why the pick nevertheless stands — three arguments, each backed by VMP's own artifacts:**
+
+1. **The counter-case grades VMP on its vision and Obsign on its present.** Its own stated criterion — *demonstrated without asking anyone to accept CEL's broader framework; survives hostile external verification* — selects Obsign today. VMP, by its own BOARD at this revision: `DONE 7 · BUILT 4 · OWED 7 · BLOCKED 13 · UNVERIFIED 13`. The pullback/planner results are on **constructed programs** (the board's own residual: "met in arithmetic, not in provenance"), have **not passed into VMP's own CLAIM.md**, and a stranger can neither install nor verify VMP today (Windows + CUDA + Python 3.14-pinned, checked-in DLLs, README linking three gitignored files). Graded consistently — both on vision, or both on present — the orderings converge or favor Obsign.
+2. **The counter-case's own finish gates encode this report's sequencing.** Its gate 2 for VMP is verbatim Obsign-shaped: "a stranger verifies it — ship a small public verifier that imports no producer implementation, *following the Obsign/Covenant doctrine*." VMP's own moonshot gate for "verified compute as a market" is "a stranger pays for a result and verifies it without trusting us." Obsign is not rank #9 beneath VMP; **Obsign is VMP's gate 2**, already shipped. Proof-directed computing cannot reach the world without the stranger-verifiable receipt; the receipt is already in the world.
+3. **"Finish VMP" is a research bet in a finishing costume.** Its own theorem ("exactness transfers, performance never does") predicts the headline shrinks on datacenter silicon; the structure-route timing experiment carried `INDICATIVE ONLY` and missed its preregistered target (1.704 vs ≥1.85); the five-questions experiment on real application traces is unrun. And the paradigm lands in dense prior art — lazy evaluation, database query optimization, branch-and-bound / best-arm racing (the `L_A > max U_j` early-stop), early-exit inference, self-adjusting computation and differential dataflow ("work ∝ change" is its tagline). The defensible novelty in CEL's hands is the **certificate welded on** — the receipt thesis again, which argues for shipping the receipt first.
+
+**The synthesis this report now carries:** sequence by risk class, not ceiling. **Act One (months, low variance): finish Obsign** — the credibility spear and the substrate. **Act Two (the elevated research flagship): VMP's five-questions experiment, with every point's certificate emitted as an Obsign replay program**, so a stranger verifies the entire curve in the already-shipped verifier — the weld that makes "a new abstraction for computing" survive hostile review. **In parallel (days–weeks): LumOne's two cheap moves** (wire the ignorance certificate into the product path; publish a CPU reproduction of the 87%→3.7% result). The two analyses are the producer half and the verifier half of one architecture; the strategy uses both, in the order credibility compounds.
 
 ---
 
