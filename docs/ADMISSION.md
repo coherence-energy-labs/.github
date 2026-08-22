@@ -130,6 +130,64 @@ It also solves the surface problem: the free tier ships a **finding**, not an on
 to learn what L3 means to understand *"this test has reported green 340 times and has never
 executed its assertion."*
 
+It also resolves a name collision that would otherwise ship: `DARK_GATE_ENV` already exists in
+`gate_vacuity_audit.py` and means *"this skip reason names a moment, not a missing capability."*
+The proposed `DARK GATE` verdict means *"a planted failure did not turn your gate red."* Two
+concepts, one name, in one product. Unify them under the same boundary instead:
+
+- **`DARK GATE (suspected)`** — Class A. Static. A gate that *looks* unable to fail.
+- **`DARK GATE (proven)`** — Class D. A failure was planted and the gate stayed green.
+
+### 3.1 Measured, not asserted — running the detector on two real trees
+
+Run 2026-08-22 against `loo@bcebb59` (the repo the Atlas calls `coherence_lang`) and
+`coherent_adversary@050acde`. `--self-check` passes: five detectors fire on synthetic positives,
+five narrowings suppress, both DARK_GATE boundary cases behave.
+
+| Tree | Test files | Findings |
+|---|---:|---:|
+| `loo/tests` | 1,591 | **494** — 297 LOOP_ONLY · 179 ASSERTION_FREE · 13 EMPTY_PARAMS · 5 DARK_GATE_ENV |
+| `coherent_adversary/tests` | 68 (846 test fns) | **4** |
+
+The contrast is itself a result: the adversarial repo is the clean one. That is the dogfooding
+story, and it is real rather than claimed.
+
+**And then the detector's own precision does not hold.** Of the 13 `EMPTY_PARAMS` findings:
+
+- **Six are false.** All six are in `tests/fuzz/test_cross_backend_fuzz.py`, parametrized over
+  `_PYCPU_SEEDS = range(1, 121)`, `_JIT_OSR_SEEDS = range(1, 61)`, `_WASM_SEEDS = range(1, 41)`
+  and friends. A `range` with constant arguments is never empty. The narrowing says *"literal
+  lists/tuples are never reported"* — and `range(...)` is a call, so it slips straight through.
+- **At least three more are guarded by a companion test.** `_DOMAINS` is followed by
+  `test_the_domain_set_is_nonempty_and_large`; `_PRODUCERS` by
+  `test_the_scan_found_the_known_producers`; `SAMPLE_FILES` by an explicit
+  `if not SAMPLE_FILES: pytest.skip(...)`.
+- **Two look genuine.** `_DEMOS = sorted((_ROOT / "demos").glob("*.cl"))` and
+  `ALL_CL_FILES = SCHEMA_FILES + CORE_FILES + …` are computed, unguarded, and carry real tests.
+
+**Measured false-positive rate for EMPTY_PARAMS on this tree: roughly 46–69%.** The docstring
+claims each detector *"carries the specific narrowing that keeps its false-positive rate near
+zero."* On a real tree it does not, and the file names its own consequence:
+
+> a noisy linter gets muted, and a muted linter is itself a dark gate
+
+**Why nothing caught it.** `--self-check` proves each detector *fires* and each narrowing
+*suppresses* — against synthetic fixtures. Nothing measures precision against a real corpus. That
+is the per-card-versus-per-capability trap from `AUDIT_2026-08-14.md`, one level further down:
+the self-check tests the detector, not the claim about the detector.
+
+**Two narrowings, both already patterned in the file:**
+
+1. `range(a, b)` / `range(n)` with constant arguments → treat as a literal. Extends the existing
+   literal-collection narrowing to the call form.
+2. A module-scope companion test asserting the collection is non-empty → suppress. **LOOP_ONLY
+   already does exactly this** — *"not reported when the same test also asserts something about
+   the iterable's length/emptiness."* EMPTY_PARAMS needs the same rule at module scope.
+
+This is why §4 requires every attack to ship a **measured** FP rate against a real corpus, not a
+synthetic one — and why the corpus keeps its own falsification library. The requirement is not
+theoretical. It was derived by running the tool for twenty minutes.
+
 ---
 
 ## 3. Build order
@@ -138,7 +196,8 @@ executed its assertion."*
 **Gates required: none. G4 recommended** (human spec review, so the claims on the page match what
 the tool can know).
 
-- Port `gate_vacuity_audit.py` off the workstation. **⚠ See §7 — it is not backed up.**
+- **Fix the two narrowings measured in §3.1 before anything else.** The precision claim in the
+  docstring does not currently hold on a real tree, and a noisy detector gets muted.
 - Harden the parser against hostile input: refuse rather than raise. The `obsign_verifier` law
   applies verbatim — *"a verifier that raises on a hostile receipt has failed open in the eyes of
   whoever handed it the file. An exception is not a refusal."*
@@ -338,16 +397,22 @@ the diligent; the homework gets bought defensively.
 
 ## 7. Risks, stated as gates
 
-**🔴 The free tier's engine is not backed up.** `gate_vacuity_audit.py` lives in `coherence_lang`,
-which does not exist under `coherence-energy-labs` on GitHub. `AUDIT_2026-08-14.md` Open Flag 1
-records **68 commits** on local branches no remote has. The single most product-ready asset in the
-estate is one disk failure from gone. **Fix this before anything else in this document.**
+**An adversarial product's output is an accusation, and the accusation is currently wrong about
+half the time on one detector.** §3.1 measures `EMPTY_PARAMS` at a **46–69% false-positive rate**
+on a live tree, against a docstring that claims near-zero. A false `DARK GATE` on someone's
+release gate is a reputational and possibly legal event. History already predicted this: the same
+file was narrowed **1759 → 515** because breadth generated false positives, and the trailing-space
+`"port "` spelling leaked into `report`/`support`/`import`.
 
-**An adversarial product's output is an accusation.** A false `DARK GATE` on someone's release
-gate is a reputational and possibly legal event. History predicts it: `gate_vacuity_audit.py` was
-narrowed **1759 → 515** because breadth generated false positives. Therefore every attack ships
-its **measured** false-positive rate, and the corpus keeps its own falsification library — attacks
-that were wrong, dated, with what replaced them. On-brand, and non-optional.
+Therefore, non-optional: every attack ships its **measured** false-positive rate **against a real
+corpus, not a synthetic fixture**, and the corpus keeps its own falsification library — attacks
+that were wrong, dated, with what replaced them. `--self-check` is necessary and is not sufficient;
+it proves a detector fires, never that it is precise.
+
+*(An earlier draft of this document flagged the vacuity auditor as unbacked-up, on the grounds that
+`coherence_lang` returns 404 under the org. It is backed up — the remote is named `LoO`, and the
+Atlas has a whole section titled "GITHUB MAP — the local name is NOT the remote name." The risk was
+retracted on measurement: `loo@bcebb59`, 8,609 files, 261 MB.)*
 
 **Default private.** Anything the submitter is authorized to submit. Public arena limited to CEL's
 own projects, opt-in open source, and explicit public challenges. Do not launch *"paste any
