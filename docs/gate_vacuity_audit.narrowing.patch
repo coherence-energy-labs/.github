@@ -1,0 +1,61 @@
+diff --git a/scripts/gate_vacuity_audit.py b/scripts/gate_vacuity_audit.py
+index 6ee9232..954bbdd 100644
+--- a/scripts/gate_vacuity_audit.py
++++ b/scripts/gate_vacuity_audit.py
+@@ -140,6 +140,29 @@ def _called_names(node: ast.AST) -> set:
+     return out
+ 
+ 
++def _static_range_len(call: ast.Call) -> Optional[int]:
++    """len() of a range() whose arguments are all integer literals, else None.
++
++    The original rule read `range -> not empty` on the reasoning that "length is written down".
++    A written-down length can be ZERO: range(0), range(1, 1), range(5, 0) are all empty, and the
++    self-check fixture is literally `list(range(0))`. So the honest test is not "is it a range"
++    but "does its written-down length evaluate to zero".
++    """
++    vals = []
++    for a in call.args:
++        if isinstance(a, ast.Constant) and isinstance(a.value, int) and not isinstance(a.value, bool):
++            vals.append(a.value)
++        elif (isinstance(a, ast.UnaryOp) and isinstance(a.op, ast.USub)
++              and isinstance(a.operand, ast.Constant) and isinstance(a.operand.value, int)):
++            vals.append(-a.operand.value)
++        else:
++            return None
++    try:
++        return len(range(*vals)) if vals else None
++    except (TypeError, ValueError):
++        return None
++
++
+ def _iter_can_be_empty(it: Optional[ast.AST], computed: set, literals: Optional[set] = None) -> bool:
+     """Can this iterable surprisingly yield NOTHING?
+ 
+@@ -155,7 +178,10 @@ def _iter_can_be_empty(it: Optional[ast.AST], computed: set, literals: Optional[
+         f = it.func
+         name = f.attr if isinstance(f, ast.Attribute) else (f.id if isinstance(f, ast.Name) else "")
+         if name == "range":
+-            return False                                  # length is written down
++            n = _static_range_len(it)
++            if n is None:
++                return True                               # length is computed -- it can be 0
++            return n == 0                                 # written down, and possibly written as 0
+         if (
+             literals
+             and name in ("items", "keys", "values")
+@@ -266,6 +292,14 @@ def audit_file(path: Path) -> List[Dict[str, Any]]:
+     computed_names = set()
+     for n in tree.body:
+         if isinstance(n, ast.Assign) and isinstance(n.value, (ast.Call, ast.IfExp, ast.BinOp)):
++            # NARROWED (2026-08-23): route the RHS through the SAME emptiness judgement the loop
++            # detector already uses. `range(1, 121)` is a Call, so the old flat membership test
++            # admitted it, and EMPTY_PARAMS reported six cross-backend fuzz lanes whose length is
++            # written down in the source. The narrowing existed 200 lines above and this detector
++            # never asked it. Measured on loo/tests: 13 EMPTY_PARAMS -> 7, six false positives gone,
++            # both genuine unguarded globs (_DEMOS, ALL_CL_FILES) retained.
++            if not _iter_can_be_empty(n.value, set(), None):
++                continue
+             for t in n.targets:
+                 if isinstance(t, ast.Name):
+                     computed_names.add(t.id)

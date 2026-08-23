@@ -1,0 +1,453 @@
+<title>Assay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --bg:#FBFAF7; --surface:#F4F1EC; --surface-2:#EDE9E1;
+  --ink:#1A1A17; --sub:#57534A; --meta:#8B8578;
+  --rule:#DFD9CD; --rule-strong:#C9C1B1;
+  --accent:#A66A1F; --accent-soft:#F0E2CB;
+  --no:#9B3B2E; --no-bg:#F6E7E3;
+  --yes:#3F6B4A; --yes-bg:#E4EDE5;
+  --manual:#5A6472; --manual-bg:#E8EAEE;
+  --shadow:0 1px 2px rgba(26,26,23,.05), 0 8px 24px rgba(26,26,23,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A0D12; --surface:#12161D; --surface-2:#181D26;
+    --ink:#F2EFE6; --sub:#B8B2A2; --meta:#6E7681;
+    --rule:#232A35; --rule-strong:#333C4A;
+    --accent:#F5C044; --accent-soft:#2A2313;
+    --no:#E0705C; --no-bg:#2B1815;
+    --yes:#7FB08A; --yes-bg:#15221A;
+    --manual:#8A96A6; --manual-bg:#1A1F27;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 28px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A0D12; --surface:#12161D; --surface-2:#181D26;
+  --ink:#F2EFE6; --sub:#B8B2A2; --meta:#6E7681;
+  --rule:#232A35; --rule-strong:#333C4A;
+  --accent:#F5C044; --accent-soft:#2A2313;
+  --no:#E0705C; --no-bg:#2B1815;
+  --yes:#7FB08A; --yes-bg:#15221A;
+  --manual:#8A96A6; --manual-bg:#1A1F27;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 28px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);
+  font-family:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  font-size:16.5px;line-height:1.62;-webkit-font-smoothing:antialiased;margin:0;padding:0 24px 120px}
+.wrap{max-width:1080px;margin:0 auto}
+.col{max-width:70ch}
+h1,h2,h3,h4{text-wrap:balance;margin:0}
+.display{font-family:"Instrument Serif",Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.01em}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+header{padding:76px 0 0}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--meta);display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.eyebrow .dot{width:3px;height:3px;border-radius:50%;background:var(--rule-strong)}
+.wordmark{font-family:"Instrument Serif",Georgia,serif;font-size:clamp(56px,10vw,120px);line-height:.92;
+  letter-spacing:-.03em;margin:20px 0 0}
+.tag{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:clamp(13px,1.7vw,16px);
+  letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:16px 0 0;font-weight:500}
+.standfirst{font-size:20px;line-height:1.55;color:var(--sub);margin:30px 0 0;max-width:64ch}
+.standfirst strong{color:var(--ink);font-weight:600}
+
+section{margin:84px 0 0}
+.marker{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--accent);margin:0 0 12px;font-weight:500}
+h2.display{font-size:clamp(30px,4vw,44px);line-height:1.1;margin:0 0 18px}
+h3{font-size:17.5px;font-weight:600;margin:40px 0 10px;letter-spacing:-.005em}
+h4{font-size:16px;font-weight:600;margin:0 0 6px}
+p{margin:0 0 17px}
+.col p:last-child{margin-bottom:0}
+strong{font-weight:600}
+em.hi{font-style:normal;color:var(--accent);font-weight:600}
+code{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.885em;background:var(--surface-2);
+  padding:1.5px 5px;border-radius:2px;color:var(--ink)}
+ul{margin:0 0 17px;padding-left:20px}
+li{margin:0 0 7px}
+
+.pull{margin:48px 0;padding:36px 0;border-top:1px solid var(--rule-strong);border-bottom:1px solid var(--rule-strong);
+  font-family:"Instrument Serif",Georgia,serif;font-size:clamp(28px,4.4vw,46px);line-height:1.14;
+  letter-spacing:-.015em;text-wrap:balance}
+.pull em{font-style:italic;color:var(--accent)}
+.pull .sm{display:block;font-family:"IBM Plex Sans",sans-serif;font-size:14.5px;letter-spacing:0;
+  color:var(--meta);margin-top:18px;line-height:1.5;max-width:60ch}
+
+blockquote{margin:26px 0;padding:2px 0 2px 22px;border-left:2px solid var(--accent);
+  font-family:"Instrument Serif",Georgia,serif;font-size:21px;line-height:1.45;color:var(--sub)}
+blockquote p{margin:0}
+blockquote cite{display:block;font-family:"IBM Plex Mono",ui-monospace,monospace;font-style:normal;
+  font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--meta);margin-top:12px}
+
+.term{margin:28px 0 0;border:1px solid var(--rule);border-radius:3px;background:var(--surface);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.8px;line-height:1.62;
+  overflow-x:auto;box-shadow:var(--shadow)}
+.term-head{padding:11px 18px;border-bottom:1px solid var(--rule);background:var(--surface-2);
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--meta)}
+.term pre{margin:0;padding:20px 18px;white-space:pre;color:var(--sub)}
+.term b{color:var(--ink);font-weight:600}
+.term .r{color:var(--no);font-weight:600}
+.term .g{color:var(--yes);font-weight:600}
+.term .a{color:var(--accent);font-weight:600}
+.term .m{color:var(--meta)}
+
+.scroll{overflow-x:auto;margin:26px 0 0;border:1px solid var(--rule);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:660px}
+caption{caption-side:top;text-align:left;padding:15px 18px;border-bottom:1px solid var(--rule);
+  background:var(--surface-2);font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--meta)}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top}
+thead th{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--meta);font-weight:500;background:var(--surface-2)}
+tbody tr:last-child th,tbody tr:last-child td{border-bottom:none}
+td.n{text-align:right;font-variant-numeric:tabular-nums;font-family:"IBM Plex Mono",monospace}
+.pill{font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;letter-spacing:.08em;
+  padding:2.5px 7px;border-radius:2px;white-space:nowrap;display:inline-block}
+.p-meas{background:var(--yes-bg);color:var(--yes)}
+.p-exec{background:var(--yes-bg);color:var(--yes)}
+.p-gated{background:var(--accent-soft);color:var(--accent)}
+.p-prose{background:var(--manual-bg);color:var(--manual)}
+.p-proj{background:var(--no-bg);color:var(--no)}
+
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:14px;margin:28px 0 0}
+.card{border:1px solid var(--rule);border-radius:3px;background:var(--surface);padding:20px 18px}
+.card .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--meta);margin-bottom:9px}
+.card .v{font-family:"Instrument Serif",Georgia,serif;font-size:40px;line-height:1;color:var(--accent);margin-bottom:9px}
+.card p{font-size:14px;color:var(--sub);margin:0;line-height:1.48}
+
+.stack{display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:3px;margin:28px 0 0;overflow:hidden}
+.row{background:var(--surface);padding:19px 20px;display:grid;grid-template-columns:minmax(150px,210px) 1fr;gap:20px}
+.row .lab{font-family:"IBM Plex Mono",monospace;font-size:12.5px;font-weight:600;letter-spacing:.05em;color:var(--accent)}
+.row .bod{font-size:14.5px;color:var(--sub);line-height:1.5}
+.row .bod b{color:var(--ink);font-weight:600}
+@media (max-width:640px){.row{grid-template-columns:1fr;gap:8px}}
+
+.risk{border:1px solid var(--no);border-left-width:3px;border-radius:3px;background:var(--no-bg);padding:20px 22px;margin:28px 0 0}
+.risk .lbl{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--no);font-weight:600;margin-bottom:9px}
+.risk p{margin:0 0 11px;font-size:15px}
+.risk p:last-child{margin:0}
+.note{border-left:2px solid var(--rule-strong);padding:2px 0 2px 18px;margin:20px 0 0}
+.note p{font-size:14.5px;color:var(--sub);margin:0}
+
+footer{margin:92px 0 0;padding:26px 0 0;border-top:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.05em;color:var(--meta);
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+</style>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow"><span>Coherence Energy Labs</span><span class="dot"></span><span>Seed</span><span class="dot"></span><span>2026-08-23</span></div>
+  <h1 class="wordmark display">Assay</h1>
+  <p class="tag">Green means nothing until red is possible</p>
+  <p class="standfirst">Every regulated industry runs on checks that nobody has ever proven can fail. We attack the check, not the claim — and we publish what survives, what broke, and what we could not establish. <strong>We will find a control that does nothing in every system we are pointed at.</strong> That is a testable claim, and the first system we tested it on was our own.</p>
+</header>
+
+<section>
+  <p class="marker">The cold open</p>
+  <div class="col">
+    <h2 class="display">A test that cannot go red gets trusted. That is worse than a test that fails.</h2>
+    <p>In August 2026 a GPU guard in this estate measured <em class="hi">peer</em> VRAM instead of <em class="hi">free</em> VRAM. Seven tests silently skipped. Five real cross-repository failures stayed invisible for an unknown length of time — because a skip reads exactly like a pass.</p>
+    <p>Separately, an SMP kernel reported <code>LOCKED 800 EXPECT 800</code> as proof a spinlock held. The same kernel compiled <em class="hi">without the lock</em> produced the identical total. The check was satisfied by the emulator and proved nothing.</p>
+    <p>Separately again, a production solver shipped with a default iteration count and a docstring promising convergence. Measured against a closed-form Green's function it was <strong>44.53% wrong</strong>. Every test it had compared the solver to itself, to a snapshot, or to a downstream score. <strong>None of them could see a solver converging to the wrong answer.</strong></p>
+    <p>These are not three bugs. They are one failure class, and it is the failure class that every audit, every compliance portal, every SOC 2 report, and every model-validation PDF on earth is structurally unable to detect — because they were all built to answer <em>"does evidence exist?"</em> rather than <em>"could this evidence-producing system detect a lie?"</em></p>
+  </div>
+
+  <div class="pull">The world checks whether the box was ticked.<br>Nobody checks whether the box <em>could have failed</em>.
+    <span class="sm">That gap is the company.</span>
+  </div>
+</section>
+
+<section>
+  <p class="marker">Proof, run today</p>
+  <div class="col">
+    <h2 class="display">We pointed it at the people who invented anti-vacuity testing. It found them.</h2>
+    <p>The boldest thing we can say is not a projection. It is a measurement taken this morning, and you can re-run every number in it.</p>
+  </div>
+
+  <div class="scroll">
+    <table>
+      <caption>Vacuity audit · two live repositories · 2026-08-23</caption>
+      <thead><tr><th>Repository</th><th class="n">Test files</th><th class="n">Gates that cannot fail</th><th>Reading</th></tr></thead>
+      <tbody>
+        <tr><td><code>loo</code> — the compiler estate</td><td class="n">1,591</td><td class="n"><b style="color:var(--no)">500</b></td><td>313 loop-only · 179 assertion-free · 5 dark skips · 3 empty-parametrize</td></tr>
+        <tr><td><code>coherent_adversary</code></td><td class="n">68 <span class="mono" style="color:var(--meta)">(846 fns)</span></td><td class="n"><b style="color:var(--yes)">4</b></td><td>the adversarial repo is the clean one — that contrast is the thesis</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <h3>Then it found a defect in itself</h3>
+    <p>The detector claimed in its own docstring that each rule <em>"carries the specific narrowing that keeps its false-positive rate near zero."</em> On a live tree it was reporting <strong>13 empty-parametrize findings, of which ten were false</strong> — six from a single fuzz file parametrized over <code>range(1, 121)</code>, <code>range(1, 61)</code>, <code>range(1, 41)</code>.</p>
+    <p>The narrowing that would have caught this <em class="hi">already existed two hundred lines above</em>, in a helper that knows a range's length is written down. <strong>The parametrize detector simply never called it.</strong></p>
+  </div>
+
+  <div class="term">
+    <div class="term-head">Wiring the existing narrowing to the caller that never asked for it</div>
+<pre><b>$ python scripts/gate_vacuity_audit.py --self-check</b>
+  <span class="r">MISS</span>  detector fires: EMPTY_PARAMS on test_empty_params
+
+SELF-CHECK: <span class="r">FAIL</span>
+<span class="m">
+# The gate caught the patch. The fixture is `list(range(0))` — a written-down
+# length that IS zero. "range is never empty" was wrong in the other direction
+# too. The honest rule: statically evaluate it.
+</span>
+<b>$ python scripts/gate_vacuity_audit.py --self-check</b>
+SELF-CHECK: <span class="g">PASS</span>
+
+<b>$ python scripts/gate_vacuity_audit.py loo/tests</b>
+                 <span class="m">BEFORE      AFTER</span>
+  EMPTY_PARAMS      <span class="r">13</span>  ──►    <span class="g">3</span>     <span class="m">ten false positives removed</span>
+  LOOP_ONLY        <span class="m">297</span>  ──►  <span class="a">313</span>     <span class="m">sixteen new findings surfaced</span>
+                 <span class="m">─────────────────</span>
+  total            494        500</pre>
+  </div>
+
+  <div class="col">
+    <p style="margin-top:24px">Read that last block carefully, because it is the entire investment thesis in nine lines.</p>
+    <ul>
+      <li><strong>A shipped detector was wrong in both directions at once</strong> — ten false alarms and sixteen missed findings, from one rule that was never wired to one of its two callers.</li>
+      <li><strong>Nothing caught it, because the self-check tests synthetic fixtures.</strong> It proved each detector <em>fires</em>. It never measured whether it was <em>precise</em>. That is the same defect one level up.</li>
+      <li><strong>And their gate went red on our first fix.</strong> It named the exact miss. That is what a control with teeth looks like, and almost nothing in the compliance industry can do it.</li>
+    </ul>
+    <p>The sixteen new findings need triage — some will be false. We are not claiming sixteen clean wins. We are claiming something better: <strong>the answer moved, in both directions, on a tool built by people who wrote the book on this failure class.</strong> If it is true here, it is true everywhere, and nobody else is looking.</p>
+  </div>
+</section>
+
+<section>
+  <p class="marker">Why now</p>
+  <div class="col">
+    <h2 class="display">Four regulators independently arrived at the same demand inside eighteen months</h2>
+  </div>
+  <div class="stack">
+    <div class="row"><span class="lab">APR 2026</span><span class="bod"><b>US banking.</b> The Fed, OCC and FDIC replaced SR 11-7 with revised model-risk guidance retaining testing, outcomes analysis, effective challenge — and <b>vendor validation</b>. It now applies with full force to AI/ML. Every bank is re-tooling right now.</span></div>
+    <div class="row"><span class="lab">FEB 2026</span><span class="bod"><b>Medical devices.</b> FDA's QMSR took effect, folding ISO 13485:2016 into the US device framework and changing the inspection regime.</span></div>
+    <div class="row"><span class="lab">2026 →</span><span class="bod"><b>Carbon borders.</b> CBAM is in its definitive regime. Importers using actual rather than default emissions need verified producer data; first declarations covering 2026 imports fall due in 2027.</span></div>
+    <div class="row"><span class="lab">2028 / 2030</span><span class="bod"><b>Methane.</b> EU importer methane-intensity reporting begins 2028; maximum-intensity requirements on covered contracts begin 2030. Measurement, reporting and verification obligations ratchet the whole way.</span></div>
+    <div class="row"><span class="lab">2027 / 2028</span><span class="bod"><b>AI.</b> EU AI Act high-risk requirements — risk management, data quality, logging, human oversight, robustness, accuracy — come into force.</span></div>
+  </div>
+  <div class="col">
+    <p style="margin-top:24px">Five different regimes. Structurally one demand: <strong>show where this number came from, show what controlled it, show that the control actually works, show it to an independent party, and keep doing it.</strong></p>
+    <p>Every one of them is about to discover that the controls they are mandating have never been tested for whether they can fail. We intend to be the ones who tell them.</p>
+  </div>
+</section>
+
+<section>
+  <p class="marker">The product</p>
+  <div class="col">
+    <h2 class="display">Assay attacks the control, then publishes exactly what survived</h2>
+    <p>You give Assay a claim and its evidence. It does not return a compliance score. It constructs an <strong>evidence contract</strong> — the claim, its declared scope, the evidence required, the transformation from evidence to result, the independent verifier, the attacks capable of falsifying it, the assumptions still trusted, what remains unknown, and when the whole thing expires.</p>
+    <p>Then it tries to break every link.</p>
+  </div>
+
+  <div class="term">
+    <div class="term-head">Methane intensity · Facility NL-104 · July 2026</div>
+<pre>CLAIM   0.84% methane intensity
+
+<b>ATTACKS</b>                              <span class="m">41 applicable · 38 armed · 3 unarmed</span>
+  missing source injection            <span class="g">WITHSTOOD</span>
+  altered flow record                 <span class="g">WITHSTOOD</span>
+  deleted LDAR repair event           <span class="g">WITHSTOOD</span>
+  chain-of-custody tamper             <span class="g">WITHSTOOD</span>
+  timestamp reorder                   <span class="g">WITHSTOOD</span>
+  stale calibration injection         <span class="r">REFUTED</span>
+  source/site reconciliation          <span class="a">DISCREPANCY</span>
+  calibration-validity control        <span class="r">DARK CONTROL</span>
+
+<b>EVIDENCE</b>
+  computation                         re-derived independently
+  sensor lineage                      established to declared source
+  calibration                         <span class="a">one gap</span>
+  regulatory obligations              18 of 21 machine-supported
+  accredited third-party verification <span class="m">NOT PROVIDED</span>
+
+<b>VERDICT</b>   <span class="a">NOT READY FOR ASSURANCE</span>
+          <span class="m">The available evidence does not justify the stronger claim.</span></pre>
+  </div>
+
+  <div class="col">
+    <p style="margin-top:24px">Not "non-compliant." Not "unsafe." Not a legal opinion. Something far more defensible, and far more useful to the person who has to sign.</p>
+  </div>
+
+  <h3 class="col">Two dimensions, never one badge</h3>
+  <div class="stack">
+    <div class="row"><span class="lab">REFUTED</span><span class="bod">A counterexample exists. Here it is. Run it.</span></div>
+    <div class="row"><span class="lab">WITHSTOOD 38/41</span><span class="bod">Every <b>armed</b> applicable attack ran within its declared model and produced no counterexample. <b>Not "safe."</b> The numerator and denominator carry the honesty; the word never will.</span></div>
+    <div class="row"><span class="lab">UNKNOWN</span><span class="bod">The bounded search ended with neither proof nor counterexample. Signed certificate of exactly where we looked.</span></div>
+    <div class="row"><span class="lab">DARK CONTROL</span><span class="bod">Your safeguard did not react when the property it protects was deliberately broken. <b>The highest-value result in the product</b> — and the one no incumbent can sell.</span></div>
+  </div>
+  <div class="col">
+    <p style="margin-top:22px">The second dimension is evidence <em>strength</em> — an L0–L5 lattice whose one law is <code>ACHIEVED = min(CLAIMED, INDEPENDENTLY_REVERIFIABLE)</code>. Assurance has a mathematically enforced ceiling. No amount of marketing upgrades L1 evidence to L4. That machinery exists today, gated by an 82-test suite plus a self-certification script <strong>declared at exit 1</strong> — so the day anyone softens its refusal, the build turns red.</p>
+  </div>
+</section>
+
+<section>
+  <p class="marker">The new object</p>
+  <div class="col">
+    <h2 class="display">Every attack carries live proof that it can still attack</h2>
+    <p>Competitors will ship rules. We ship <strong>attacks</strong>, and an attack that cannot demonstrate it still fires contributes exactly zero assurance to any assessment containing it.</p>
+  </div>
+  <div class="term">
+    <div class="term-head">The proprietary object</div>
+<pre><b>ATTACK  CAL-0047</b>   Expired calibration accepted by signature check
+<span class="m">──────────────────────────────────────────────────────────</span>
+failure class    <b>FC-113</b>  temporal validity not enforced
+sabotage         swap valid cert for expired-but-correctly-signed
+vulnerable       measurement remains eligible
+defended         evidence chain refuses the measurement
+
+<b>ARMING</b>                                    <span class="m">2026-08-23</span>
+  kills known-vulnerable specimen          <span class="g">✓</span>
+  leaves known-safe twin alive             <span class="g">✓</span>
+  own reject path mutation-tested          <span class="g">✓</span> <span class="m">15/15 caught</span>
+  independent oracle active                <span class="g">✓</span>
+  version + assumptions frozen             <span class="g">✓</span> <span class="m">v3.2.1</span>
+
+STATUS           <span class="g">ARMED</span>
+measured FP      0.7%  <span class="m">on a real corpus, not a fixture</span></pre>
+  </div>
+  <div class="col">
+    <p style="margin-top:24px"><strong>Armed is a live state, not a property.</strong> Any condition lapses and the attack goes dark, loudly. This is the anti-vacuity doctrine turned recursively on our own machinery — and today's measurement is exactly why that is not a slogan. We shipped a detector whose precision claim had quietly stopped being true, and only found out by running it against a real corpus.</p>
+    <p>The ratchet therefore counts <strong>failure classes covered</strong>, not attacks held. <em>"4,731 attacks"</em> is a number about inventory. <code>FAILURE-CLASS COVERAGE: 34 of 61</code> is a number about the world, and the build fails when it goes down.</p>
+  </div>
+</section>
+
+<section>
+  <p class="marker">Diligence ledger</p>
+  <div class="col">
+    <h2 class="display">What is measured, what is gated, and what is a promise</h2>
+    <p>We are asking you to fund a bold thesis. So here is the scoreboard with the tiers on it, including the rows where the honest answer is "prose." A pitch that hid these would be selling the exact product failure we intend to sell against.</p>
+  </div>
+
+  <div class="scroll">
+    <table>
+      <caption>Capability × evidence tier · scored against source, not card prose</caption>
+      <thead><tr><th>Capability the product needs</th><th>Where it lives</th><th>Tier</th></tr></thead>
+      <tbody>
+        <tr><td>Find checks that cannot fail</td><td><code>gate_vacuity_audit.py</code> — 500 findings, self-checking, FP defect found and fixed today</td><td><span class="pill p-meas">MEASURED</span></td></tr>
+        <tr><td>Bit-identical execution across CPU / GPU / WASM / browser</td><td>0-ULP fixed point, six substrates</td><td><span class="pill p-exec">EXEC</span></td></tr>
+        <tr><td>Compiler that cannot miscompile</td><td>Z3 total-equivalence over all 2<sup>64n</sup> inputs</td><td><span class="pill p-exec">EXEC</span></td></tr>
+        <tr><td>Find soundness bugs, then prove the witness</td><td><code>clc hunt</code> — settle + Z3</td><td><span class="pill p-exec">EXEC</span></td></tr>
+        <tr><td>Evidence-strength algebra + stranger verifier</td><td>Covenant L0–L5, 82 tests, <code>selfcert.py</code> at exit 1, 600-LOC closure</td><td><span class="pill p-exec">EXEC</span></td></tr>
+        <tr><td>Independent replay a stranger can run offline</td><td><code>obsign-verify</code> 0.2.0 — PyPI + npm, Apache-2.0, 13/13 across three architectures</td><td><span class="pill p-gated">GATED</span></td></tr>
+        <tr><td>Attack semantic correctness</td><td>Coherent Adversary — 1.0/1.0 on a <b>disclosed n=10</b> corpus vs 0/50,000 blind fuzz</td><td><span class="pill p-gated">GATED</span></td></tr>
+        <tr><td>Detect under-constrained circuits</td><td>Determinacy stack, four composed engines, real BN254 <code>.r1cs</code></td><td><span class="pill p-gated">GATED</span></td></tr>
+        <tr><td>Provable measurement, 8 axes</td><td>The Notary — productized standalone, 206 tests, <b>methane MRV named as its wedge</b></td><td><span class="pill p-gated">GATED</span></td></tr>
+        <tr><td>Physical evidence lineage to regulated claim</td><td>Glass Plant — architecture complete, <b>plant-year synthetic, labelled SYNTHETIC in-band</b></td><td><span class="pill p-prose">PROSE</span></td></tr>
+        <tr><td>Continuous freshness / detectable silence</td><td>Sentinel — 25 calibrated checks, 7 live attacks, falsified 3× and recorded</td><td><span class="pill p-prose">PROSE</span></td></tr>
+        <tr><td>Bounded ignorance certificates</td><td>PIC line — <b>no executable claim in LumOne</b>; the gated descendant is <code>agent_security_kaggle</code></td><td><span class="pill p-prose">PROSE</span></td></tr>
+        <tr><td>UI that cannot render a badge it did not earn</td><td>Idem Proven Surface — the law is stated, the claim covers other modules</td><td><span class="pill p-prose">PROSE</span></td></tr>
+        <tr><td>Admission of external targets</td><td><b>40 production flags in <code>harness/gates.py</code>. All false. Published, not hidden.</b></td><td><span class="pill p-proj">PROJECTED</span></td></tr>
+        <tr><td>Domain packs (methane, CBAM, QMSR, model risk)</td><td>Not started</td><td><span class="pill p-proj">PROJECTED</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="risk">
+    <div class="lbl">The number we will not quote as a product claim</div>
+    <p>Recall 1.0 / precision 1.0 is measured on a <strong>disclosed ten-target corpus</strong> — five planted bugs, five sound twins. <strong>n = 10.</strong> Our own gate lattice has four flags (sealed multi-project holdout, independent custodian, preregistered ablation, baselines and confidence intervals) that exist precisely to gate this claim, and all four read NO.</p>
+    <p>So we will tell you what it is worth: it is a strong signal on a small disclosed set, and it is <em>not yet</em> an efficacy claim. Closing those four flags is a named objective of this round.</p>
+  </div>
+</section>
+
+<section>
+  <p class="marker">Moat</p>
+  <div class="col">
+    <h2 class="display">Incumbents are structurally barred from our best output</h2>
+    <p>The question every investor asks: why won't a Big Four assurance practice, or an established MRV vendor, simply build this?</p>
+    <p>Not because they lack engineers. <strong>Because their revenue is issuing opinions, and our best product tells a client that the opinion they just bought was protecting nothing.</strong> An assurance firm that ships DARK CONTROL is competing with itself. That is a structural exclusion, not a cultural one, and it does not resolve with budget.</p>
+    <p>The second moat compounds. A traditional compliance database gets bigger as customers join. An attack corpus gets <em>better at attacking everyone</em>. Customer A exposes a calibration certificate that stays cryptographically valid past its authorized measurement window; we generalize it, calibrate it, prove it kills the vulnerable fixture and spares the good twin, and release it. Customers B through E are attacked by it that night — and every previously issued assurance object whose scope intersects it flips to <code>NEW APPLICABLE ATTACK — RE-ASSESSMENT REQUIRED</code>.</p>
+    <p>More customers → more failure modes → stronger corpus → more valuable assurance. And the corpus is worth more than the code, because the expensive part of an attack is never writing it. It is <em>proving it fires and does not cry wolf</em> — which is exactly the thing we measured ourselves failing at this morning, and fixed.</p>
+  </div>
+</section>
+
+<section>
+  <p class="marker">Model</p>
+  <div class="col">
+    <h2 class="display">The free tier should look economically irrational</h2>
+    <p>Verification is free forever, no account, offline wherever the mathematics permits. Anyone may attack our own public claims, including this document's numbers. We publish attack <em>definitions</em> so anyone can see what was tried and check the reasoning.</p>
+    <p>We charge for the calibration corpus — the vulnerable specimens, the safe twins, the mutation harness that proves an attack is armed — and for execution at scale, private evidence, domain packs, and continuous re-attack. The definition of an attack is cheap. Proving it has teeth is the asset.</p>
+  </div>
+  <div class="grid2">
+    <div class="card"><div class="k">Free forever</div><div class="v">$0</div><p>Verify anything. Attack public claims. Offline verifier. Open receipt spec and test vectors. No account.</p></div>
+    <div class="card"><div class="k">Team</div><div class="v">CI</div><p>Private attacks, CI gates, scheduled re-attack, approvals, evidence ownership.</p></div>
+    <div class="card"><div class="k">Regulated enterprise</div><div class="v">Packs</div><p>Domain packs, private deployment, policy maps, retention, API, SSO, on-prem and air-gapped.</p></div>
+    <div class="card"><div class="k">Continuous assurance</div><div class="v">Live</div><p>Sentinel. Each signed observation commits <em>in advance</em> to when the next is due — so silence itself becomes detectable instead of quietly reading green.</p></div>
+  </div>
+  <div class="note"><p>Recurring revenue here is not manufactured. Code changes, sensors age, calibrations expire, regulations move, dependencies drift, and new attacks become executable. Assurance genuinely decays. We are selling the only honest response to that: keep attacking it.</p></div>
+</section>
+
+<section>
+  <p class="marker">Sequence</p>
+  <div class="col">
+    <h2 class="display">One beachhead, then prove the kernel transfers</h2>
+    <p><strong>Methane and carbon evidence first.</strong> Best combination of regulatory deadline, economic consequence, existing work — the Notary already names it — and a mandatory independent verifier who becomes our channel rather than our competitor.</p>
+    <p>And the honest scope: <strong>we attack the evidence chain, not the instrument.</strong> We do not build sensors and we do not claim to. Every attack in the demo above — expired calibration, missing source, deleted repair event, timestamp reorder, reconciliation — is an attack on records and controls. That is where the fraud and the error actually live, and it is reachable now.</p>
+    <p>Then a <strong>second pack in a maximally different domain</strong> — bank model risk or medical-device QMS — for one reason only: to prove the kernel transfers rather than requiring a rewrite. If it doesn't, we are a methane company and you should know in eighteen months, not five years.</p>
+  </div>
+
+  <h3 class="col">What we are raising for</h3>
+  <div class="stack">
+    <div class="row"><span class="lab">KERNEL</span><span class="bod">Close the admission classes the records product actually needs — and say plainly that we are <b>not</b> opening the hardest containment door yet, because a records-and-controls product does not have that threat model. Close G1's four efficacy flags so the 1.0/1.0 becomes quotable.</span></div>
+    <div class="row"><span class="lab">BEACHHEAD</span><span class="bod">Three to five methane/carbon design partners running real evidence, with at least one accredited verifier in the loop as a channel partner rather than a subject.</span></div>
+    <div class="row"><span class="lab">TRANSFER</span><span class="bod">Second domain pack live, demonstrating the kernel is a kernel.</span></div>
+  </div>
+
+  <div class="col">
+    <h3>The milestone that would actually prove us</h3>
+    <p>Not revenue. Not attack count. This:</p>
+  </div>
+  <blockquote>
+    <p>An independent organization takes an Assay evidence bundle, verifies it with an implementation we did not author, corrupts the evidence and watches the system reject it — then introduces a failure we <em>miss</em>. And we publish it, turn it into a permanent attack, and re-run every affected assurance object.</p>
+    <cite>the flywheel, demonstrated rather than described</cite>
+  </blockquote>
+</section>
+
+<section>
+  <p class="marker">What we are not</p>
+  <div class="col">
+    <h2 class="display">Assay is never the authority</h2>
+    <p>We do not replace the FDA. We do not determine EU legal compliance. We do not replace an accredited CBAM verifier — that verification is performed by accredited parties and will stay that way.</p>
+    <p>We are the technical evidence substrate underneath those decisions. An auditor's opinion sits in the graph. An accredited signature sits in the graph. A clinician's judgment sits in the graph. <strong>What Assay will never do is silently upgrade professional judgment into mathematical proof.</strong> That restraint is why a regulated buyer can adopt us at all.</p>
+  </div>
+
+  <div class="risk">
+    <div class="lbl">Risks we are not hiding</div>
+    <p><b>Our output is an accusation.</b> A false DARK CONTROL is a reputational and possibly legal event. We measured a 46–69% false-positive rate in one of our own detectors this morning. The answer is not to promise it won't happen — it is that every attack ships a measured FP rate against a real corpus, and the corpus keeps its own graveyard of attacks that were wrong.</p>
+    <p><b>Default private.</b> Public arena limited to our own projects, opt-in open source, and explicit challenges. We will not ship "paste any company's repo and we'll tell the world what's broken."</p>
+    <p><b>Language stays mechanical.</b> Never "Company X lied." Always "gate G remained green after mutation M removed condition P." Facts, artifacts, scope.</p>
+    <p><b>Novelty unproven.</b> Property testing, mutation testing, fuzzing, chaos engineering, formal verification and adversarial ML each hold pieces. What is plausibly unclaimed is the composition. We will research that before we market it — and in the ZK lane we have named competitors and can <em>measure</em> the claim instead of asserting it.</p>
+  </div>
+</section>
+
+<section>
+  <p class="marker">The vision, stated plainly</p>
+  <div class="col">
+    <h2 class="display">Consequential claims stop being documents and start being executable</h2>
+    <p>A medical-device release does not just carry a safety report — it carries a machine-checkable evidence object. A financial model does not just carry a validation PDF — it carries a continuously attacked passport. A methane cargo does not just carry a spreadsheet — it carries a measurement graph. A scientific figure regenerates and defends itself. An AI evaluation carries proof its own test was not vacuous.</p>
+    <p>All of them speak one language: <em>what is claimed, what supports it, what could falsify it, did those attacks actually run, what survived, what remains unknown, and is that still true right now.</em></p>
+    <p>That layer does not exist. Somebody is going to build it, and it will sit between every consequential claim and every person expected to believe one.</p>
+  </div>
+
+  <div class="pull" style="border-bottom:none;padding-bottom:0">Compliance software proves the box was ticked.<br><em>Assay proves the box could have failed.</em>
+    <span class="sm">Green means nothing until red is possible.</span>
+  </div>
+</section>
+
+<footer>
+  <span>Every number re-runnable · measured 2026-08-23 against loo@bcebb59 · coherent_adversary@050acde</span>
+  <span>Name unclear — clearance pending</span>
+</footer>
+
+</div>
